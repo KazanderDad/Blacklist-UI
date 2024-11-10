@@ -13,8 +13,6 @@ import { WagmiProvider } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-const CubidSDK = require('cubid-sdk');
-    
 // Initialize fonts
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
