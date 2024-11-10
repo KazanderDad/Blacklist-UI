@@ -1,3 +1,4 @@
+// src/components/victims-reporting-page.tsx
 'use client'
 
 import { useState } from 'react'
