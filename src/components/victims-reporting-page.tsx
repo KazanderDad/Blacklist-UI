@@ -235,16 +235,19 @@ const fetchUserData = async () => {
             Increase your score
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col items-center mt-4">
-          <div className="text-white grid grid-cols-3 gap-3">
-            <CubidWidget stampToRender="google" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
-            <CubidWidget stampToRender="twitter" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
-            <CubidWidget stampToRender="discord" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
-            <CubidWidget stampToRender="github" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
-            <CubidWidget stampToRender="facebook" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
-            <Button onClick={handleFetchScore}>Fetch Score</Button>
-          </div>
-        </CardContent>
+        {Boolean(cubidUserDetails?.user_id) && (
+          <CardContent className="flex flex-col items-center mt-4">
+            <div className="text-white grid grid-cols-3 gap-3">
+              <CubidWidget stampToRender="google" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+              <CubidWidget stampToRender="twitter" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+              <CubidWidget stampToRender="discord" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+              <CubidWidget stampToRender="github" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+              <CubidWidget stampToRender="facebook" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+              <Button onClick={handleFetchScore}>Fetch Score</Button>
+            </div>
+          </CardContent>
+        )}
+
       </Card>
 
       <Card className="mb-6 bg-slate-800 border-slate-700">
