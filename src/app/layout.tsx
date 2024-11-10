@@ -4,6 +4,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import '@rainbow-me/rainbowkit/styles.css';
+import 'cubid-sdk/dist/index.css'
 
 import {
   getDefaultConfig,
@@ -13,8 +14,6 @@ import { WagmiProvider } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-const CubidSDK = require('cubid-sdk');
-    
 // Initialize fonts
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

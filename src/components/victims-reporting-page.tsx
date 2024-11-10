@@ -1,3 +1,4 @@
+// src/components/victims-reporting-page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -10,9 +11,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Progress } from "components/ui/progress"
 import { LayoutComponent } from './layout'
 import { useAccount } from 'wagmi'
-import { CubidSDK } from 'cubid-sdk'
+import { CubidSDK, CubidWidget } from 'cubid-sdk'
 
 const cubidSDK = new CubidSDK(71, 'f82e7818-6271-45ec-a874-0d00b4bb011d')
+
+// Initialize with your dapp_id and api_key
 
 export function VictimsReportingPageComponent() {
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false)
@@ -49,6 +52,105 @@ export function VictimsReportingPageComponent() {
   const handleMintToChain = () => {
     setIsMinted(true)
   }
+
+  // SDK Function Handlers
+  /*
+  const createUser = async () => {
+    if (user) {
+        setLoading('createUser');
+        try {
+            const response = await sdk.createUser({ email: user.email, phone: '' });
+            const newUuid = response.user_id;
+            setUser({ ...user, uuid: newUuid });
+            setSdkResponse(response);
+            localStorage.setItem('user_uuid', newUuid); // Save UUID to localStorage
+        } catch (error) {
+            console.error("Error creating user:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+
+const fetchApproxLocation = async () => {
+    if (user?.uuid) {
+        setLoading('fetchApproxLocation');
+        try {
+            const response = await sdk.fetchApproxLocation({ user_id: user.uuid });
+            setSdkResponse(response);
+        } catch (error) {
+            console.error("Error fetching approximate location:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+
+const fetchExactLocation = async () => {
+    if (user?.uuid) {
+        setLoading('fetchExactLocation');
+        try {
+            const response = await sdk.fetchExactLocation({ user_id: user.uuid });
+            setSdkResponse(response);
+        } catch (error) {
+            console.error("Error fetching exact location:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+
+const fetchIdentity = async () => {
+    if (user?.uuid) {
+        setLoading('fetchIdentity');
+        try {
+            const response = await sdk.fetchIdentity({ user_id: user.uuid });
+            setSdkResponse(response);
+        } catch (error) {
+            console.error("Error fetching identity:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+
+const fetchRoughLocation = async () => {
+    if (user?.uuid) {
+        setLoading('fetchRoughLocation');
+        try {
+            const response = await sdk.fetchRoughLocation({ user_id: user.uuid });
+            setSdkResponse(response);
+        } catch (error) {
+            console.error("Error fetching rough location:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+
+const fetchUserData = async () => {
+    if (user?.uuid) {
+        setLoading('fetchUserData');
+        try {
+            const response = await sdk.fetchUserData({ user_id: user.uuid });
+            setSdkResponse(response);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        } finally {
+            setLoading(null);
+        }
+    }
+};
+*/
+
+  const handleFetchScore = async () => {
+    try {
+      const response = await cubidSDK.fetchScore({ user_id: cubidUserDetails?.user_id });
+      setHumanScore(response.cubid_score);
+    } catch (error) {
+      console.error("Error fetching score:", error);
+    }
+  };
 
   return (
     <LayoutComponent>
@@ -129,10 +231,28 @@ export function VictimsReportingPageComponent() {
 
       <Card className="mb-6 bg-slate-800 border-slate-700">
         <CardHeader>
+          <CardTitle className="text-slate-100">
+            Increase your score
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col items-center mt-4">
+          <div className="text-white grid grid-cols-3 gap-3">
+            <CubidWidget stampToRender="google" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+            <CubidWidget stampToRender="twitter" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+            <CubidWidget stampToRender="discord" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+            <CubidWidget stampToRender="github" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+            <CubidWidget stampToRender="facebook" uuid={cubidUserDetails?.user_id} page_id="35" api_key={'f82e7818-6271-45ec-a874-0d00b4bb011d' ?? ""} />
+            <Button onClick={handleFetchScore}>Fetch Score</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mb-6 bg-slate-800 border-slate-700">
+        <CardHeader>
           <CardTitle className="text-slate-100">Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="mb-4 text-slate-300">Please report this crime to your local authorities if you haven't already. </p>
+          <p className="mb-4 text-slate-300">Please report this crime to your local authorities if you haven&apos;t already. </p>
           <Input placeholder="Police report reference number" className="mb-4 bg-slate-700 border-slate-600 text-slate-100 placeholder-slate-400" />
           <Input type="file" accept="image/*,.pdf" className="mb-4 bg-slate-700 border-slate-600 text-slate-100" />
           <p className="mb-4 text-slate-300">This information will be kept private. You police report reference number will only be shared with lawfully identified employees of insurance companies and law enforcement agencies. You contact details will not be shared with anyone. However, we will provide a messaging service, so please monitor your email and/or phone for automated messages from Blacklist.</p>
