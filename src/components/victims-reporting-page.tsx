@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "components/ui/button"
 import { Input } from "components/ui/input"
 import { Textarea } from "components/ui/textarea"
@@ -9,11 +9,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "components/ui/dialog"
 import { Progress } from "components/ui/progress"
 import { LayoutComponent } from './layout'
+import { useAccount } from 'wagmi'
+import { CubidSDK } from 'cubid-sdk'
+
+const cubidSDK = new CubidSDK(71, 'f82e7818-6271-45ec-a874-0d00b4bb011d')
 
 export function VictimsReportingPageComponent() {
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false)
   const [humanScore, setHumanScore] = useState(50)
   const [isMinted, setIsMinted] = useState(false)
+  const { address } = useAccount()
+  const [cubidUserDetails, setCubidUserDetails] = useState<any>(null)
+
+  useEffect(() => {
+    if (address)
+      (async () => {
+        const newUser = await cubidSDK.createUser({ evm: address } as any)
+        setCubidUserDetails(newUser)
+      })()
+  }, [address])
+
+  console.log({ cubidUserDetails })
 
   const handleVerifyOwnershipSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -128,7 +144,7 @@ export function VictimsReportingPageComponent() {
         <Card className="bg-slate-800 border-slate-700">
           <CardContent>
             <p className="text-center py-4 text-slate-300">
-              Your claim has been saved. View your case details here: 
+              Your claim has been saved. View your case details here:
               <a href="/claim/1234" className="text-blue-400 hover:text-blue-300 ml-1">Case #1234</a>
             </p>
           </CardContent>
