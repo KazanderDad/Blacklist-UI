@@ -19,7 +19,7 @@ const cubidSDK = new CubidSDK(71, 'f82e7818-6271-45ec-a874-0d00b4bb011d')
 
 export function VictimsReportingPageComponent() {
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false)
-  const [humanScore, setHumanScore] = useState(50)
+  const [humanScore, setHumanScore] = useState(0)
   const [isMinted, setIsMinted] = useState(false)
   const { address } = useAccount()
   const [cubidUserDetails, setCubidUserDetails] = useState<any>(null)
@@ -223,9 +223,6 @@ const fetchUserData = async () => {
             <p className="mb-2 text-slate-300">Human Score: {humanScore}%</p>
             <Progress value={humanScore} className="w-full bg-slate-700" />
           </div>
-          <Button onClick={() => setHumanScore(Math.min(humanScore + 10, 100))} className="bg-slate-700 hover:bg-slate-600">
-            Increase Trustworthiness
-          </Button>
         </CardContent>
       </Card>
 
