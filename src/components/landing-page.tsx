@@ -13,7 +13,7 @@ export function LandingPageComponent() {
     "down"
   );
   const [searchParams, setSearchParams] = useState("");
-
+  const [searchResult, setSearchResult] = useState<any[]>([]);
   const scrollToContent = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -44,12 +44,20 @@ export function LandingPageComponent() {
 
   const handleSearch = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      console.log("searchParams", searchParams);
       try {
         const response = await axios.get(
           `/api/search?query=${encodeURIComponent(searchParams)}`
         );
-        console.log("Search result:", response.data);
+        console.log("response", response.data);
+        if (
+          response.data &&
+          typeof response.data === "object" &&
+          "result" in response.data
+        ) {
+          setSearchResult((prevResults) => [...prevResults, response.data]);
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("Axios error:", error.response?.data || error.message);
@@ -74,12 +82,37 @@ export function LandingPageComponent() {
               onKeyDown={handleSearch}
             />
           </div>
-          <div className="w-full max-w-md">
-            <p>{}</p>
-          </div>
         </div>
       </div>
-
+      {searchResult && (
+        <div className="p-4 bg-slate-800 text-slate-100">
+          <h2 className="text-2xl font-bold mb-2">Search Results</h2>
+          <table className="w-full text-left">
+            <thead>
+              <tr>
+                <th className="border-b border-slate-700 p-2">Search Param</th>
+                <th className="border-b border-slate-700 p-2">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResult.map((result: any, index: number) => (
+                <tr key={index}>
+                  <td className="border-b border-slate-700 p-2">
+                    {result.searchParams.query}
+                  </td>
+                  <td className="border-b border-slate-700 p-2">
+                    {result.result ? (
+                      <span className="text-red-500">SPAMMER X</span>
+                    ) : (
+                      <span className="text-green-500">CLEAN ✓</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <div className="min-h-screen flex items-center justify-center">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-6">Welcome to Blacklist</h1>
