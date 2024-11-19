@@ -1,17 +1,14 @@
 // app/layout.tsx
-'use client'
+"use client";
 
 import localFont from "next/font/local";
 import "./globals.css";
-import '@rainbow-me/rainbowkit/styles.css';
-import 'cubid-sdk/dist/index.css'
+import "@rainbow-me/rainbowkit/styles.css";
+import "cubid-sdk/dist/index.css";
 
-import {
-  getDefaultConfig,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, base } from 'wagmi/chains';
+import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { WagmiProvider } from "wagmi";
+import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 // Initialize fonts
@@ -28,10 +25,10 @@ const geistMono = localFont({
 
 // Configure RainbowKit and wagmi with default settings
 const config = getDefaultConfig({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',  // Replace with your actual WalletConnect project ID
+  appName: "My RainbowKit App",
+  projectId: "YOUR_PROJECT_ID", // Replace with your actual WalletConnect project ID
   chains: [mainnet, polygon, optimism, arbitrum, base],
-  ssr: true,  // Enable SSR if your app uses server-side rendering
+  ssr: true, // Enable SSR if your app uses server-side rendering
 });
 
 // Initialize react-query's QueryClient
@@ -49,7 +46,9 @@ export default function RootLayout({
       >
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider> {/* Remove chains prop */}
+            <RainbowKitProvider>
+              {" "}
+              {/* Remove chains prop */}
               {children}
             </RainbowKitProvider>
           </QueryClientProvider>

@@ -1,53 +1,81 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Button } from "components/ui/button"
-import { Input } from "components/ui/input"
-import { LayoutComponent } from './layout'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { Button } from "components/ui/button";
+import { Input } from "components/ui/input";
+import { LayoutComponent } from "./layout";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import axios from "axios";
 
 export function LandingPageComponent() {
-  const [showScrollButton, setShowScrollButton] = useState<'down' | 'up'>('down')
+  const [showScrollButton, setShowScrollButton] = useState<"down" | "up">(
+    "down"
+  );
+  const [searchParams, setSearchParams] = useState("");
 
   const scrollToContent = () => {
     window.scrollTo({
       top: window.innerHeight,
-      behavior: 'smooth'
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       // Toggle between down and up arrow based on scroll position
       if (window.scrollY > 50) {
-        setShowScrollButton('up')
+        setShowScrollButton("up");
       } else {
-        setShowScrollButton('down')
+        setShowScrollButton("down");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleSearch = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      console.log("searchParams", searchParams);
+      try {
+        const response = await axios.get(
+          `/api/search?query=${encodeURIComponent(searchParams)}`
+        );
+        console.log("Search result:", response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Axios error:", error.response?.data || error.message);
+        } else {
+          console.error("Unexpected error:", error);
+        }
       }
     }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  };
 
   return (
     <LayoutComponent>
       <div className="min-h-screen flex flex-col">
         <div className="flex-grow flex items-center justify-center">
           <div className="w-full max-w-md">
-            <Input 
-              type="search" 
-              placeholder="Search for a case..." 
+            <Input
+              type="search"
+              placeholder="Search for a case..."
               className="bg-slate-800 border-slate-700 text-slate-100 placeholder-slate-400"
+              value={searchParams}
+              onChange={(e) => setSearchParams(e.target.value)}
+              onKeyDown={handleSearch}
             />
+          </div>
+          <div className="w-full max-w-md">
+            <p>{}</p>
           </div>
         </div>
       </div>
@@ -56,24 +84,36 @@ export function LandingPageComponent() {
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-6">Welcome to Blacklist</h1>
           <p className="text-xl mb-8 text-slate-300">
-            Blacklist is a platform for reporting and investigating blockchain scam transactions. 
-            We aim to provide recourse for victims and tools for investigators to combat fraud.
+            Blacklist is a platform for reporting and investigating blockchain
+            scam transactions. We aim to provide recourse for victims and tools
+            for investigators to combat fraud.
           </p>
           <div className="flex justify-center space-x-4 mb-12">
-            <Button asChild size="lg" className="bg-slate-700 hover:bg-slate-600">
+            <Button
+              asChild
+              size="lg"
+              className="bg-slate-700 hover:bg-slate-600"
+            >
               <Link href="/victims">I want to report a theft</Link>
             </Button>
-            <Button asChild size="lg" className="bg-slate-700 hover:bg-slate-600">
-              <Link href="/investigators">
-                I&apos;m an Investigator
-              </Link>
+            <Button
+              asChild
+              size="lg"
+              className="bg-slate-700 hover:bg-slate-600"
+            >
+              <Link href="/investigators">I&apos;m an Investigator</Link>
             </Button>
           </div>
           <p className="mb-8 text-slate-400">
-            Help us maintain and improve this platform to fight against blockchain fraud.
+            Help us maintain and improve this platform to fight against
+            blockchain fraud.
           </p>
           <Button asChild className="bg-slate-700 hover:bg-slate-600">
-            <a href="https://www.buymeacoffee.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.buymeacoffee.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Support Us on Buy Me a Coffee
             </a>
           </Button>
@@ -82,10 +122,10 @@ export function LandingPageComponent() {
 
       {/* Scroll Button */}
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
-        {showScrollButton === 'down' ? (
-          <Button 
-            variant="ghost" 
-            size="icon" 
+        {showScrollButton === "down" ? (
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={scrollToContent}
             className="animate-bounce text-slate-100 hover:text-slate-900"
           >
@@ -93,9 +133,9 @@ export function LandingPageComponent() {
             <span className="sr-only">Scroll to content</span>
           </Button>
         ) : (
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={scrollToTop}
             className="text-slate-400 hover:text-slate-100"
           >
@@ -105,5 +145,5 @@ export function LandingPageComponent() {
         )}
       </div>
     </LayoutComponent>
-  )
+  );
 }
