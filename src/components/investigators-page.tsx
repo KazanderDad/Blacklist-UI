@@ -140,9 +140,9 @@ export function InvestigatorsPageComponent() {
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              <li><Link href="/claim/1" className="text-blue-400 hover:text-blue-300">Case #1234 - Ethereum Phishing Scam</Link></li>
-              <li><Link href="/claim/2" className="text-blue-400 hover:text-blue-300">Case #5678 - Bitcoin Ransomware Attack</Link></li>
-              <li><Link href="/claim/3" className="text-blue-400 hover:text-blue-300">Case #9101 - Binance Smart Chain Rug Pull</Link></li>
+              <li><Link href="/claim/" className="text-blue-400 hover:text-blue-300">Case #1234 - Ethereum Phishing Scam</Link></li>
+              <li><Link href="/claim/" className="text-blue-400 hover:text-blue-300">Case #5678 - Bitcoin Ransomware Attack</Link></li>
+              <li><Link href="/claim/" className="text-blue-400 hover:text-blue-300">Case #9101 - Binance Smart Chain Rug Pull</Link></li>
             </ul>
           </CardContent>
         </Card>
