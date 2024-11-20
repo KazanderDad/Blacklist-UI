@@ -1,0 +1,228 @@
+{
+  "abi": [
+    {
+      "type": "function",
+      "name": "getAllAddressReports",
+      "inputs": [
+        { "name": "addr", "type": "address", "internalType": "address" }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple[]",
+          "internalType": "struct ReportModel.ScammerAddressRecord[]",
+          "components": [
+            { "name": "stage", "type": "uint8", "internalType": "uint8" },
+            { "name": "to", "type": "address", "internalType": "address" },
+            { "name": "txIn", "type": "bytes32", "internalType": "bytes32" },
+            {
+              "name": "timestamp",
+              "type": "uint256",
+              "internalType": "uint256"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAllAddressTransactions",
+      "inputs": [
+        { "name": "addr", "type": "address", "internalType": "address" }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple[]",
+          "internalType": "struct ReportModel.TransactionDetails[]",
+          "components": [
+            {
+              "name": "transactionHash",
+              "type": "bytes32",
+              "internalType": "bytes32"
+            },
+            { "name": "chainId", "type": "uint256", "internalType": "uint256" }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "isAddressReported",
+      "inputs": [
+        { "name": "addr", "type": "address", "internalType": "address" }
+      ],
+      "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "reportAddress",
+      "inputs": [
+        {
+          "name": "report",
+          "type": "tuple",
+          "internalType": "struct ReportModel.UserReport",
+          "components": [
+            { "name": "chainId", "type": "uint256", "internalType": "uint256" },
+            {
+              "name": "scammers",
+              "type": "address[]",
+              "internalType": "address[]"
+            },
+            {
+              "name": "transactions",
+              "type": "bytes32[]",
+              "internalType": "bytes32[]"
+            }
+          ]
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    }
+  ],
+  "bytecode": { "object": "0x", "sourceMap": "", "linkReferences": {} },
+  "deployedBytecode": { "object": "0x", "sourceMap": "", "linkReferences": {} },
+  "methodIdentifiers": {
+    "getAllAddressReports(address)": "0bfebb28",
+    "getAllAddressTransactions(address)": "def1d6c1",
+    "isAddressReported(address)": "88893e06",
+    "reportAddress((uint256,address[],bytes32[]))": "1379d0a4"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.24+commit.e11b9ed9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getAllAddressReports\",\"outputs\":[{\"components\":[{\"internalType\":\"uint8\",\"name\":\"stage\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"txIn\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"internalType\":\"struct ReportModel.ScammerAddressRecord[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"getAllAddressTransactions\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"transactionHash\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"chainId\",\"type\":\"uint256\"}],\"internalType\":\"struct ReportModel.TransactionDetails[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"isAddressReported\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"chainId\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"scammers\",\"type\":\"address[]\"},{\"internalType\":\"bytes32[]\",\"name\":\"transactions\",\"type\":\"bytes32[]\"}],\"internalType\":\"struct ReportModel.UserReport\",\"name\":\"report\",\"type\":\"tuple\"}],\"name\":\"reportAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/utils/BLSModels.sol\":\"IESR\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\",\":ds-test/=lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"],\"viaIR\":true},\"sources\":{\"src/utils/BLSModels.sol\":{\"keccak256\":\"0x408b377445bc07bac8c12b27cd68bef23b6208ef4a83f0c8c82fd003643125e9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0f532912dd14ce89944d06d4eedf77dd3608f318c5614891566ad93df8730c92\",\"dweb:/ipfs/QmePth3EuJtQvGu1RZWmrc9UW6BLsGxKrY55BKFohpgts5\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": { "version": "0.8.24+commit.e11b9ed9" },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            { "internalType": "address", "name": "addr", "type": "address" }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAllAddressReports",
+          "outputs": [
+            {
+              "internalType": "struct ReportModel.ScammerAddressRecord[]",
+              "name": "",
+              "type": "tuple[]",
+              "components": [
+                { "internalType": "uint8", "name": "stage", "type": "uint8" },
+                { "internalType": "address", "name": "to", "type": "address" },
+                {
+                  "internalType": "bytes32",
+                  "name": "txIn",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "timestamp",
+                  "type": "uint256"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "inputs": [
+            { "internalType": "address", "name": "addr", "type": "address" }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAllAddressTransactions",
+          "outputs": [
+            {
+              "internalType": "struct ReportModel.TransactionDetails[]",
+              "name": "",
+              "type": "tuple[]",
+              "components": [
+                {
+                  "internalType": "bytes32",
+                  "name": "transactionHash",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "chainId",
+                  "type": "uint256"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "inputs": [
+            { "internalType": "address", "name": "addr", "type": "address" }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isAddressReported",
+          "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "struct ReportModel.UserReport",
+              "name": "report",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "chainId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "scammers",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "bytes32[]",
+                  "name": "transactions",
+                  "type": "bytes32[]"
+                }
+              ]
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "reportAddress"
+        }
+      ],
+      "devdoc": { "kind": "dev", "methods": {}, "version": 1 },
+      "userdoc": { "kind": "user", "methods": {}, "version": 1 }
+    },
+    "settings": {
+      "remappings": [
+        "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+        "ds-test/=lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+        "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+        "forge-std/=lib/forge-std/src/",
+        "halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/",
+        "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": { "enabled": true, "runs": 200 },
+      "metadata": { "bytecodeHash": "ipfs" },
+      "compilationTarget": { "src/utils/BLSModels.sol": "IESR" },
+      "evmVersion": "paris",
+      "libraries": {},
+      "viaIR": true
+    },
+    "sources": {
+      "src/utils/BLSModels.sol": {
+        "keccak256": "0x408b377445bc07bac8c12b27cd68bef23b6208ef4a83f0c8c82fd003643125e9",
+        "urls": [
+          "bzz-raw://0f532912dd14ce89944d06d4eedf77dd3608f318c5614891566ad93df8730c92",
+          "dweb:/ipfs/QmePth3EuJtQvGu1RZWmrc9UW6BLsGxKrY55BKFohpgts5"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "id": 45
+}
